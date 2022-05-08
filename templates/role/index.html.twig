@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des rôles{% endblock %}
+
+{% block body %}
+    <h1 class="h1 formTitle">Liste des rôles</h1>
+    <ul class="list-group list-item-GC">
+        {% for role in roles %}
+            <li>
+                <a class="list-group-item list-group-item-action" href="{{ path('app_admin_role_show', {'id': role.id}) }}">{{ role.roleName }}</a>
+                <a class="list-group-item list-group-item-action" href="{{ path('app_admin_role_delete', {'id': role.id}) }}">
+                    <button type="button" class="btn btn-danger">Supprimer</button>
+                </a>
+            </li>
+        {% endfor %}
+        <br>
+        <li>
+            <a href="{{ path('app_admin_role_new') }}"><button class="btn btn-primary">Ajouter un rôle</button></a>
+        </li>
+    </ul>
+{% endblock %}

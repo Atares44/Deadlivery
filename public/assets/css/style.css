@@ -1,0 +1,144 @@
+@font-face {
+    font-family: "MADE Tommy Soft";
+    src: url("/assets/fonts/MADE-Tommy-Soft/MADE-Tommy-Soft-Regular-PERSONAL-USE.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "MADE Tommy Soft";
+    src: url("/assets/fonts/MADE-Tommy-Soft/MADE-Tommy-Soft-Bold-PERSONAL-USE.otf") format("opentype");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Madrid grunge";
+    src: url("/assets/fonts/Madrid-grunge/Madrid-Grunge.otf") format("opentype");
+}
+
+body, * {
+    font-family: "MADE Tommy Soft", sans-serif;
+}
+
+body {
+    background-color: #DFDFDF;
+}
+
+.nav-small {
+    display: none;
+}
+
+.user {
+    display: inherit;
+}
+
+.userName {
+    margin-top: 14%;
+    margin-left: 4%;
+}
+
+.visiteur {
+    margin-top: 12%;
+}
+
+.log-img, .logout-img {
+    margin: -3%;
+    margin-right: -5%;
+}
+
+.navbar-brand-text, .logo-text {
+    font-family: "Madrid grunge", sans-serif;
+    font-size: 2.25rem;
+    color: black;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #70B9C5; 
+  overflow-x: hidden;
+  padding-top: 6%;
+  transition: 0.5s;
+}
+
+.sidebar a, .sidebar div.user {
+  padding: 2% 5% 2% 12%;
+  text-decoration: none;
+  color: #515151;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover, .sidebar h6.userName {
+  color: #111111;
+}
+
+.sidebar div.user {
+    display: inline-flex;
+}
+
+.sidebar img.log-img, .sidebar img.logout-img, .sidebar h6.userName {
+    flex-wrap: nowrap;
+}
+
+.logo-img {
+  margin-top: -1em;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 5%;
+  font-size: 2.25rem;
+  margin-left: 20%;
+}
+
+.openbtn {
+  font-size: 1.25rem;
+  cursor: pointer;
+  border: none;
+  background-color: #70B9C5;
+  color: white;
+}
+
+.openbtn:hover {
+    color: white;
+    background-color: #5DAAB7;
+}
+
+#main {
+  transition: margin-left .5s; /* If you want a transition effect */
+  padding: 30px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 2%;}
+  .sidebar a {font-size: 1rem;}
+}
+
+@media (max-width: 1200px) {
+    .nav-large {
+        display: none;
+    }
+
+    .nav-small {
+        display: block;
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0 15% 0 15%;
+}
+
+form *, .formTitle {
+    text-align: center;
+}
+
+.div-message {
+  text-align: center;
+}

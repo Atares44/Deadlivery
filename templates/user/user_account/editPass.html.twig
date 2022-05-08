@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modification mot de passe{% endblock %}
+
+{% block body %}
+    <h1>Modification de votre mot de passe {{ user.userPseudo }}</h1>
+    {{ include('user/user_account/_form.html.twig', {form: edit_form, action: 'Modifier'}) }}
+{% endblock %}

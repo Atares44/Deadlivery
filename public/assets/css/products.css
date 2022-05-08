@@ -1,0 +1,155 @@
+.h1, h2 {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.h6 {
+	font-weight: bold;
+	margin-bottom: 13%;
+}
+
+h3 {
+	font-weight: 500;
+	margin-top: -62%;
+	margin-left: 2%;
+	margin-bottom: 50%;
+}
+
+.add {
+	margin-top: 2%;
+	text-align: center;
+}
+
+.add a {
+	padding: 0.15%;
+}
+
+.add-img, .delete-img {
+	margin: -3%;
+	margin-right: -5%;
+}
+
+.table {
+	margin-top: 2%;
+}
+
+.table td, .table th {
+	vertical-align: inherit;
+	width: 1%;
+}
+
+button.delete, a.delete {
+	padding: 0.5%;
+}
+
+.modal {
+	color: #111;
+}
+
+.filter {
+	margin-top: -2%;
+    margin-left: 69%;
+    padding-bottom: 2%;
+}
+
+.filter select, .filter option {
+	border-radius: 25em;
+}
+
+.products {
+	max-width: 100%;
+	align-content: center;
+}
+
+.product {
+	min-width: 400px;
+	max-width: 31%;
+	background-color: #C8E3E7;
+	border: 7px dashed black;
+	text-align: center;
+	margin-top: 2%;
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
+.product-img {
+	margin-top: 3%;
+}
+
+.icones {
+	margin-top: -10%;
+}
+
+.text {
+	margin-top: 10%;
+	text-align: center;
+	align-content: center;
+	align-items: center;
+}
+
+.card-body {
+	padding: 0;
+	padding-top: 1rem;
+}
+
+.float-right {
+	margin-bottom: 8%;
+}
+
+@media (max-width: 1700px) {
+	.filter {
+		margin-top: -2.9%;
+		margin-left: 72.5%;
+	}
+}
+
+@media (max-width: 1500px) {
+	.filter {
+		margin-top: -2.8%;
+		margin-left: 73.5%;
+	}
+}
+
+@media (max-width: 1350px) {
+	.filter {
+		margin-top: -3%;
+		margin-left: 77.5%;
+	}
+}
+
+@media (max-width: 1200px) {
+	.filter {
+		margin-top: 0;
+		margin-left: 40%;
+	}
+}
+
+@media (max-width: 900px) {
+	.filter {
+		margin-top: 0;
+		margin-left: 37%;
+	}
+}
+
+@media (max-width: 700px) {
+	.filter {
+		margin-top: 0;
+		margin-left: 35%;
+	}
+}
+
+@media (max-width: 500px) {
+	.h1 {
+		font-size: 2rem;
+	}
+	.filter {
+		margin-top: 0;
+		margin-left: 32%;
+	}
+}
+
+@media (max-width: 400px) {
+	.h1 {
+		font-size: 1.5rem;
+	}
+}

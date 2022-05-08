@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+
+    <div class="example-wrapper">
+        <h1 class="h1 formTitle">Liste des utilisateurs</h1>
+
+        <ul class="list-group list-item-GC">
+            {% for user in users %}
+
+                <li>
+                    <a class="list-group-item list-group-item-action" href="{{ path('app_admin_user_show', { id: user.id }) }}">
+                        {{ user.userPseudo }} </a>
+                    {% set isClient = false %}
+                        {% for role in user.roles %}
+                            {% if role == 'ROLE_CLIENT' %}
+                                {% set isClient = true %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if not isClient %}
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm delete" data-toggle="modal" data-target="#deleteModal" data-whatever="{{ user.id }}">
+                                    Supprimer
+                                    <img class="delete-img" src="/assets/images/icones/ddlvry-grphcs-delete.svg" alt="delete" width="41" height="41">
+                                </button>
+
+                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel">Supprimer cet utilisateur ?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Êtes-vous sûr de vouloir supprimer cet utilisateur ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
+                                                <a role="button" href="#" class="btn btn-danger delete">
+                                                    Supprimer
+                                                    <img class="delete-img" src="/assets/images/icones/ddlvry-grphcs-delete.svg" alt="delete" width="41" height="41">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        {% elseif isClient %}
+                            <div>Impossible de supprimer un client.</div>
+                        {% endif %}
+                </li>
+
+            {% endfor %}
+            <br>
+            <li>
+                <a href="{{ path('app_admin_user_new') }}"><button class="btn btn-primary">Créer un gestionnaire ou un administrateur</button></a>
+            </li>
+        </ul>
+
+    </div>
+{% endblock %}

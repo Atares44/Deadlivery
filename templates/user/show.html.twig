@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1 class="h1 formTitle">{{ "Compte " ~ user.userPseudo }}</h1>
+    <div>
+        <p>Pseudo: {{ user.userPseudo }}</p>
+        <p>Mail: {{ user.userMail }}</p>
+        <p>Prénom: {{ user.userName }}</p>
+        <p>Nom: {{ user.userSurname }}</p>
+        <p>Téléphone: {{ user.userTel }}</p>
+    </div>
+
+
+    {% if user.clientAccount is not empty %}
+
+        <div>
+            <h3>Informations clients</h3>
+            <p>Rang: {{ user.clientAccount.clientRank }}</p>
+            <p>Commandes passées: {{ user.clientAccount.nbOrders }}</p>
+        </div>
+
+        {% if user.clientAccount.orders is not empty %}
+            <table class="table table-light tabCustom">
+                <tr>
+                    <th>Produit</th>
+                    <th>Nature du produit</th>
+                    <th>Service</th>
+                    <th>Prix</th>
+                    <th>Date de la commande</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th>Adresse de livraison</th>
+                    <th>Adresse de facturation</th>
+                </tr>
+                {% for order in user.clientAccount.orders %}
+                    <tr>
+                        {% if order.orderProducts is not empty %}
+                            <td>
+                                <li class="list-group-item list-group-item-action" href="{{ path('app_products_show', {'id': order.orderProducts.id}) }}">
+                                    {{ order.orderProducts.productName }}
+                                </li>
+                            </td>
+                            <td>{{ order.orderProducts.productNature }}</td>
+                        {% endif %}
+                        <td>
+                            {% if order.orderService is not empty %}
+                                {{ order.orderService.serviceName }}
+                            {% endif %}
+                        </td>
+                        <td>{{ order.orderPrice }}&euro;</td>
+                        <td>{{ order.orderDate | date("d/m/Y")}}</td>
+                        <td>{{ order.orderStartDate | date("d/m/Y")}}</td>
+                        <td>{{ order.orderEndDate | date("d/m/Y")}}</td>
+                        <td>
+                            {{ order.shippingANumber }} {{ order.shippingAStreet }}<br/>
+                            {{ order.shippingAPostCode }} {{ order.shippingATown }}<br/>
+                            {{ order.shippingACountry }}
+                        </td>
+                        <td>
+                            {{ order.billingANumber }} {{ order.billingAStreet }}<br/>
+                            {{ order.billingAPostCode }} {{ order.billingATown }}<br/>
+                            {{ order.billingACountry }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% endif %}
+
+    {% if user.clientAccount is  empty %}
+        <td>
+            <button type="button" class="btn btn-danger btn-sm delete" data-toggle="modal" data-target="#deleteModal" data-whatever="{{ user.id }}">
+                Supprimer
+                <img class="delete-img" src="/assets/images/icones/ddlvry-grphcs-delete.svg" alt="delete" width="41" height="41">
+            </button>
+
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Supprimer cet utilisateur ?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Êtes-vous sûr de vouloir supprimer cet utilisateur ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
+                            <a role="button" href="#" class="btn btn-danger delete">
+                                Supprimer
+                                <img class="delete-img" src="/assets/images/icones/ddlvry-grphcs-delete.svg" alt="delete" width="41" height="41">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <a href="{{ path('app_admin_user_editrole', {'id': user.id}) }}"><button class="btn btn-info">Modifier le rôle de cet utilisateur</button></a>
+    {% endif %}
+    <a href="{{ path('app_admin_user_index') }}"><button class="btn btn-primary">Retour à la liste des utilisateurs</button></a>
+{% endblock %}

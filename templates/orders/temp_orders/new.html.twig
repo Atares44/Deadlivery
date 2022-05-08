@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Passer commande - Formulaire de location{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/scripts/orderPage/orderPageProduct.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <h1 class="h1 formTitle">Passer commande</h1>
+    {{ include('orders/temp_orders/_form.html.twig', {form: new_form, action: 'Valider'}) }}
+    <a href="{{ path('app_products_index') }}"><button class="btn btn-danger">Annuler la demande de location</button></a>
+{% endblock %}

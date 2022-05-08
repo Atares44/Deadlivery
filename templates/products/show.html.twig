@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/assets/css/show-product.css">{% endblock %}
+
+ {% block javascripts %}
+
+     <script src="{{ asset('assets/scripts/productsPage/showPage.js') }}"></script>
+
+{% endblock %}
+
+{% block title %}{{ "Fiche " ~ product.productName }}{% endblock %}
+
+{% block body %}
+    {% if product.productStatus is same as('Available') or app.user and is_granted('ROLE_GESTIONNAIRE') %}
+        <div class="customItem card product mx-auto">
+            <h1 class="h1 card-title formTitle">{{ product.productName }}</h1>
+            <input id="productName" type="hidden" value="{{ product.id }}">
+
+            <img src="/assets/images/products/{{ product.productImg }}" class="product-img mx-auto" id="imgProduct" alt="{{ product.productName }}" height="300" width="200">
+
+            <div class="card-body">
+                <img class="nature-img" src="/assets/images/icones/ddlvry-grphcs-{{ product.productNature }}.svg" alt="{{ product.productNature }}" width="150" height="150">
+
+                <div class="card-div">
+                    <p class="card-text level">
+                    {% if product.productNature == "amorphe" %}
+                        Niveau I
+                    {% elseif product.productNature == "accommodant" %}
+                        Niveau II
+                    {% elseif product.productNature == "agressif" %}
+                        Niveau III
+                    {% elseif product.productNature == "apocalyptique" %}
+                        Niveau IV
+                    {% else %}
+                            Niveau ?
+                    {% endif %}
+                    </p>
+                    <h6 class="card-text card-h6">Zombie {{ product.productNature }}</h6>
+                </div>
+                <div class="card-div">
+                    <h6 class="card-text card-h6">Description</h6>
+                    <p>
+                    {% if product.productDesc %}
+                        {{ product.productDesc }}
+                    {% else %}
+                        Description en cours
+                    {% endif %}
+                    </p>
+                </div>
+                <div class="card-div">
+                    <h6 class="card-text card-h6">Service attribué</h6>
+                    <p>{{ product.productService }}</p>
+                </div>
+                <div class="card-div">
+                    <h6 class="card-text card-h6">Note moyenne de performance</h6>
+                    <img class="averageNote-img" src="/assets/images/icones/ddlvry-grphcs-averageNote.svg" alt="note" width="150" height="150">
+                    <h3 class="card-text averageNote-text">{{ product.averageNote }}</h3>
+                </div>
+                {% if app.user and not is_granted('ROLE_GESTIONNAIRE') %}
+                    <div>
+                        <a id="orderByProduct" class="btn btn-success btn-sm">
+                            Commander
+                            <img class="add-img" src="/assets/images/icones/ddlvry-grphcs-add-panier.svg" alt="ajouter au panier" width="41" height="41">
+                        </a>
+                    </div>
+                {% endif %}
+                {% if app.user and is_granted('ROLE_GESTIONNAIRE') %}
+                    <div>
+                        <a href="{{ path('app_admin_products_edit', {'id': product.id}) }}" class="btn btn-info btn-sm">
+                            Modifier
+                            <img class="edit-img" src="/assets/images/icones/ddlvry-grphcs-edit.svg" alt="modifier" width="41" height="41">
+                        </a>
+                        <a type="button" href="{{ path('app_admin_products_delete', {'id': product.id}) }}" class="btn btn-danger btn-sm delete" data-toggle="modal" data-target="#deleteModal" data-whatever="{{ product.id }}">
+                            Supprimer
+                            <img class="delete-img" src="/assets/images/icones/ddlvry-grphcs-delete.svg" alt="delete" width="41" height="41">
+                        </a>
+
+                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Supprimer ce produit ?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Êtes-vous sûr de vouloir supprimer ce produit ?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
+                                        <a role="button" href="#" class="btn btn-danger delete">
+                                            Supprimer
+                                            <img class="delete-img" src="/assets/images/icones/ddlvry-grphcs-delete.svg" alt="delete" width="41" height="41">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        {{ include('exception/error404.html.twig') }}
+    {% endif %}
+{% endblock %}

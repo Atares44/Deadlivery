@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('assets/css/services.css') }}">{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/scripts/servicePage/indexPage.js') }}"></script>
+{% endblock %}
+
+{% block title %}Liste des services{% endblock %}
+
+{% block body %}
+    <h1 class="h1 formTitle">Liste des services</h1>
+
+    {% if is_granted('ROLE_GESTIONNAIRE') %}
+        <div class="add">
+            <a href="{{ path('app_admin_servicetype_new') }}" class="btn btn-info">
+                Ajouter un service
+                <img class="add-img" src="/assets/images/icones/ddlvry-grphcs-add.svg" alt="add" width="50" height="50">
+            </a>
+        </div>
+        <br>
+    {% endif %}
+
+    <div class="list-group services">
+        {% for service_type in services_type %}
+            <a class="list-group-item list-group-item-action list-group-item-info" href="{{ path('app_servicetype_show', { id: service_type.id }) }}">
+                {{ service_type.serviceName }}
+            </a>
+            {% if is_granted('ROLE_GESTIONNAIRE') %}
+                <a class="list-group-item list-group-item-action">
+                    <button type="button" class="btn btn-danger delete" data-toggle="modal" data-target="#deleteModal" data-whatever="{{ service_type.id }}">
+                        Supprimer {{ service_type.serviceName }}
+                        <img class="delete-img" src="/assets/images/icones/ddlvry-grphcs-delete.svg" alt="delete" width="41" height="41">
+                    </button>
+                </a>
+
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel">Supprimer ce service ?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Êtes-vous sûr de vouloir supprimer ce service ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
+                                    <a role="button" href="#" class="btn btn-danger delete">
+                                        Supprimer
+                                        <img class="delete-img" src="/assets/images/icones/ddlvry-grphcs-delete.svg" alt="delete" width="41" height="41">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

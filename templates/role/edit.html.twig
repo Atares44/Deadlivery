@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="h1 formTitle">Modification du rôle {{ role.roleName }}</h1>
+    {{ include('role/_form.html.twig', {form: edit_form, action: 'Modifier'}) }}
+
+    <a href="{{ path('app_admin_role_show', {id: role.id}) }}"><button class="btn btn-primary">Annuler</button></a>
+{% endblock %}

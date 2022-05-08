@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('assets/css/form-service.css') }}">{% endblock %}
+
+{% block title %}Modification {{ service_type.serviceName }}{% endblock %}
+
+{% block body %}
+	<div class="div-form">
+	    <h1>Modification du service {{ service_type.serviceName }}</h1>
+	    {{ include('service_type/_form.html.twig', {form: edit_form, action: 'Modifier'}) }}
+	    <a class="btn btn-primary back" href="{{ path('app_servicetype_show', {id: service_type.id}) }}">
+	    	Annuler
+	    	<img class="back-img" src="/assets/images/icones/ddlvry-grphcs-retour.svg" alt="back" width="41" height="41">
+	    </a>
+	</div>
+{% endblock %}

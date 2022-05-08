@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+.formulaireDisplay
+{
+    display: none;
+}
+.formulaireOrderDisplay
+{
+    display: none;
+}
+</style>
+    <h1 class="h1 formTitle">Adresses</h1>
+
+    <div>
+        Récapitulatif de votre commande:
+        {{ service.serviceName }}
+        {{ product.productName }}
+        {{ tempOrder.tempStartDate|date('Y-m-d') }}
+        {{ tempOrder.tempEndDate|date('Y-m-d') }}
+        {{ tempOrder.tempOrderPrice }}
+    </div>
+
+    <div class="chooseShipping">
+        <h3>Choisissez l'adresse de livraison</h3>
+    {% for adress in adresses %}
+        <div>
+            <input type="radio" id="{{ adress.id }}" name="checkBoxAdressShipping" value="{{ adress.id }}"
+                   checked="checked">
+            <label for="{{ adress.id }}">{{ adress.adressNumber }} {{ adress.adressStreet }}<br/>
+                {{ adress.adressPostCode }} {{ adress.adressTown }}<br/>
+                {{ adress.adressCountry }}</label>
+        </div>
+    {% endfor %}
+    </div>
+
+
+    <div class="chooseBilling">
+        <h3>Choisissez l'adresse de facturation</h3>
+    {% for adress in adresses %}
+        <div>
+            <input type="radio" id="{{ adress.id }}" name="checkBoxAdressBilling" value="{{ adress.id }}"
+                   checked="checked">
+            <label for="{{ adress.id }}">{{ adress.adressNumber }} {{ adress.adressStreet }}<br/>
+                {{ adress.adressPostCode }} {{ adress.adressTown }}<br/>
+                {{ adress.adressCountry }}</label>
+        </div>
+    {% endfor %}
+    </div>
+
+    <div>
+        <input type="checkbox" id="sameAdress" name="sameAdress"
+               checked>
+        <label for="sameAdress">Choisir la même adresse pour la livraison et la facturation</label>
+    </div>
+
+    <div>
+        <input type="button" value="Utiliser cette adresse" id="validAdress"/>
+    </div>
+
+    <input type="button" class="btn btn-primary" id="displayFormButton" value="Ajouter une nouvelle adresse"/>
+
+    <div class="formulaireDisplay" id="formulaireDisplay">
+        {{ form_start(new_form_address, {'attr': {'id': 'formAdress'}}) }}
+        {{ form_widget(new_form_address) }}
+        <p>Utiliser cette nouvelle adresse en tant que</p>
+
+        <div>
+            <input type="checkbox" id="shippingAdress" name="selectTypeAdress"
+                   checked>
+            <label for="shippingAdress">Adresse de livraison</label>
+        </div>
+        <div>
+            <input type="checkbox" id="billingAdress" name="selectTypeAdress"
+                   checked>
+            <label for="billingAdress">Adresse de facturation</label>
+        </div>
+
+        <br>
+        <button id="boutonValidNewAdress" type="button" class="btn btn-success">Valider</button>
+        <input type="reset" value="Vider" class="btn btn-danger"/>
+        {{ form_end(new_form_address) }}
+    </div>
+
+    <div class ="formulaireOrderDisplay" id="formulaireOrderDisplay">
+
+        {{ form_start(order_form_address, {'attr': {'id': 'formOrders'}}) }}
+        {{ form_widget(order_form_address) }}
+
+        <input type="hidden" id="idShippingAdresse" name="idShippingAdresse" value="-1"/>
+        <input type="hidden" id="idBillingAdresse" name="idBillingAdresse" value="-1"/>
+
+        <button id="boutonValidNewOrder" type="button" class="btn btn-success">Valider</button>
+        <input type="reset" value="Vider" class="btn btn-danger"/>
+        {{ form_end(order_form_address) }}
+    </div>
+
+    <div>
+        <a href="{{ path('app_orders_canceltemporder', { 'id': tempOrder.id} ) }}"><button class="btn btn-danger">Annuler la demande de location</button></a>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/scripts/orderPage/orderPageAddress.js') }}"></script>
+{% endblock %}
+

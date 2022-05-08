@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Commandes{% endblock %}
+
+{% block body %}
+    <h1 class="h1 formTitle">Liste des commandes</h1>
+    <ul class="list-group list-item-GC">
+        {% for order in orders %}
+            <li class="customItem">
+                <a class="list-group-item list-group-item-action" href="{{ path('app_orders_show', {'id': order.id}) }}">
+                    {{ "Commande " ~ order.orderRef ~ " status " ~ order.orderStatus}}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <br>
+{% endblock %}

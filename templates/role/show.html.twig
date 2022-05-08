@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="h1 formTitle">Le rôle {{ role.roleName }}</h1>
+
+        {% if role.users is not empty %}
+            <div>
+            <h4>Les utilisateurs ayant ce rôle sont:</h4>
+                <table class="table table-light tabCustom">
+                    <thead class="thead-light" >
+                    <tr>
+                        <th>Pseudo</th>
+                        <th>Mail</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for user in role.users %}
+                        <tr>
+                                <td>{{ user.userPseudo }}</td>
+                                <td>{{ user.userMail }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div>
+                <p>Aucun utilisateur n'a ce rôle.</p>
+            </div>
+        {% endif %}
+    <div>
+    <a class="list-group-item list-group-item-action"  href="{{ path('app_admin_role_index') }}">
+        <button type="button" class="btn btn-info">Retour à la liste</button>
+    </a>
+    <a class="list-group-item list-group-item-action"  href="{{ path('app_admin_role_edit', {id: role.id}) }}">
+        <button type="button" class="btn btn-info">Modifier ce rôle</button>
+    </a>
+    <a class="list-group-item list-group-item-action" href="{{ path('app_admin_role_delete', {'id': role.id}) }}">
+        <button type="button" class="btn btn-danger btn-sm">Supprimer</button>
+    </a>
+    </div>
+{% endblock %}

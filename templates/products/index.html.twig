@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Produits{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/assets/css/products.css">{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/scripts/productsPage/indexPage.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    
+    <h1 class="h1 formTitle">Liste des produits</h1>
+
+    {% if is_granted('ROLE_GESTIONNAIRE') %}
+        <div class="add">
+            <a href="{{ path('app_admin_products_new') }}" class="btn btn-info btn-sm">
+                Ajouter un produit
+                <img class="add-img" src="/assets/images/icones/ddlvry-grphcs-add.svg" alt="add" width="50" height="50">
+            </a>
+        </div>
+
+        <div class="filter">
+            <select name="" id="selectServ">
+                <option>Choisissez un service</option>
+                {% for service in services %}
+                    <option value="{{ service.id }}">{{ service.serviceName }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <table class="table table-striped table-dark table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Service</th>
+                    <th scope="col">Nature</th>
+                    <th scope="col">Note moyenne</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <th scope="row">{{ product.id }}</th>
+                        <td>
+                            <a class ="text-white" href="{{ path('app_products_show', {'id': product.id}) }}">
+                                {{ product.productName }}
+                            </a>
+                        </td>
+                        <td>{{ product.productService }}</td>
+                        <td>{{ product.productNature }}</td>
+                        <td>{{ product.averageNote }}</td>
+                        <td
+                            {% if product.productStatus == "nonAvailable" %}
+                                class="text-danger"
+                            {% endif %}
+                            >
+                            {{ product.productStatus }}
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm delete" data-toggle="modal" data-target="#deleteModal" data-whatever="{{ product.id }}">
+                                Supprimer
+                                <img class="delete-img" src="/assets/images/icones/ddlvry-grphcs-delete.svg" alt="delete" width="41" height="41">
+                            </button>
+
+                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">Supprimer ce produit ?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Êtes-vous sûr de vouloir supprimer ce produit ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
+                                            <a role="button" href="#" class="btn btn-danger delete">
+                                                Supprimer
+                                                <img class="delete-img" src="/assets/images/icones/ddlvry-grphcs-delete.svg" alt="delete" width="41" height="41">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+
+        <div class="filter">
+            <select name="" id="selectServUser">
+                <option>Choisissez un service</option>
+                {% for service in services %}
+                    {% if service.serviceTypeStatus is same as('Available') %}
+                        <option value="{{ service.id }}">{{ service.serviceName }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <ul id="zombiesCards" class="card-deck products">
+            {% for product in products %}
+                <li class="customItem card product">
+                    <img src="/assets/images/products/{{ product.productImg }}" class="product-img mx-auto" alt="{{ product.productName }}" height="300" width="200">
+
+                    <div class="card-body">
+                        <div class="icones">
+                            <img class="float-left ml-n4" src="/assets/images/icones/ddlvry-grphcs-{{ product.productNature }}.svg" alt="{{ product.productNature }}" width="150" height="150">
+
+                            <div class="float-right mr-n4 text-white">
+                                <img src="/assets/images/icones/ddlvry-grphcs-averageNote.svg" alt="note" width="150" height="150">
+                                <h3 class="card-text">{{ product.averageNote }}</h3>
+                            </div>
+                        </div>
+
+                        <div class="text">
+                            <h2 class="card-title">{{ product.productName }}</h2>
+                            <h6 class="card-text h6 mx-auto">Zombie {{ product.productNature }}</h6>
+                            <a href="{{ path('app_products_show', {'id': product.id}) }}" class="details mx-auto">
+                                <img src="/assets/images/icones/ddlvry-grphcs-show.svg" alt="details" width="50" height="50">
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

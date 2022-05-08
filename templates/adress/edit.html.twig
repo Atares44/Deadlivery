@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modification du compte{% endblock %}
+
+{% block body %}
+    <h1>Modification de votre adresse</h1>
+    {{ include('adress/_form.html.twig', {form: edit_form, action: 'Modifier'}) }}
+{% endblock %}

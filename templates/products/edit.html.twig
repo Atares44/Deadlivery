@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un produit{% endblock %}
+
+{% block body %}
+    <h1 class="h1 formTitle">Modification du produit {{ product.productName }}</h1>
+    {{ include('products/_form.html.twig', {form: edit_form, action: 'Modifier'}) }}
+{% endblock %}

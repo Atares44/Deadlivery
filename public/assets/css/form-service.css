@@ -1,0 +1,140 @@
+.div-form {
+	text-align: center;
+	align-content: center;
+}
+
+.back {
+	margin-top: 1%;
+	padding: 0.22rem;
+}
+
+.back-img {
+	margin: -3%;
+	margin-right: -5%;
+}
+
+.action {
+	width: 6.942rem;
+    margin-left: 46%;
+    height: 2.747rem;
+}
+
+@media(max-width: 1800px) {
+	.action {
+		margin-left: 45.7%;
+	}
+}
+
+@media(max-width: 1700px) {
+	.action {
+		margin-left: 45.4%;
+	}
+}
+
+@media(max-width: 1600px) {
+	.action {
+		margin-left: 45.1%;
+	}
+}
+
+@media(max-width: 1500px) {
+	.action {
+		margin-left: 44.8%;
+	}
+}
+
+@media(max-width: 1400px) {
+	.action {
+		margin-left: 44.5%;
+	}
+}
+
+@media(max-width: 1300px) {
+	.action {
+		margin-left: 44%;
+	}
+}
+
+@media(max-width: 1200px) {
+	.action {
+		margin-left: 43.5%;
+	}
+}
+
+@media(max-width: 1100px) {
+	.action {
+		margin-left: 43%;
+	}
+}
+
+@media(max-width: 1000px) {
+	.action {
+		margin-left: 42.3%;
+	}
+}
+
+@media(max-width: 900px) {
+	.action {
+		margin-left: 41.3%;
+	}
+}
+
+@media(max-width: 800px) {
+	.action {
+		margin-left: 40%;
+	}
+}
+
+@media(max-width: 700px) {
+	.action {
+		margin-left: 39%;
+	}
+}
+
+@media(max-width: 600px) {
+	.action {
+		margin-left: 37%;
+	}
+}
+
+@media(max-width: 500px) {
+	.action {
+		margin-left: 34%;
+	}
+}
+
+@media(max-width: 450px) {
+	.action {
+		margin-left: 33%;
+	}
+}
+
+@media(max-width: 400px) {
+	.action {
+		margin-left: 30%;
+	}
+}
+
+@media(max-width: 350px) {
+	.action {
+		margin-left: 27%;
+	}
+}
+
+@media(max-width: 300px) {
+	.action {
+		margin-left: 24%;
+	}
+}
+
+@media(max-width: 250px) {
+	.action {
+		margin-left: 18%;
+	}
+}
+
+@media(max-width: 200px) {
+	.action {
+		margin-left: 10%;
+	}
+}

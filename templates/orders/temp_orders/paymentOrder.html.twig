@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement{% endblock %}
+
+{% block body %}
+    <h1 class="h1 formTitle">Paiement</h1>
+    <p>Montant de la commande: </p>{{ tempOrder.tempOrderPrice ~ " €" }}
+    {{ include('orders/temp_orders/_form.html.twig', {form: new_form_confirm, action: 'Payer'}) }}
+    <a href="{{ path('app_orders_canceltemporder', { 'id': tempOrder.id} ) }}"><button class="btn btn-danger">Annuler la demande de location</button></a>
+{% endblock %}

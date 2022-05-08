@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter un rôle</h1>
+    {{ include('role/_form.html.twig', {form: new_form, action: 'Ajouter'}) }}
+    <a href="{{ path('app_admin_role_index') }}"><button class="btn btn-primary">Annuler</button></a>
+{% endblock %}

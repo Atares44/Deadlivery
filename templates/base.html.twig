@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+        <script src="{{ asset('assets/js/jquery-3.5.0.min.js') }}"></script>
+        <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('assets/scripts/sidebarMenu/sidebarMenu.js') }}"></script>
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <div class="container nav-large">
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #70B9C5;">
+                <a class="navbar-brand" href="{{ path('app_products_index') }}">
+                    <img class="d-inline-block align-top" src="/assets/images/icones/ddlvry-grphcs-logo.svg" alt="logo" width="55" height="55">
+                    <span class="navbar-brand-text">DEADLIVERY</span>
+                </a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_products_index') }}">Produits</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_servicetype_index') }}">Services</a>
+                        </li>
+                        {% if is_granted('ROLE_USER') and not is_granted('ROLE_GESTIONNAIRE') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_orders_new') }}">Passer commande</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_user_showaccount') }}">Mon compte</a>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_GESTIONNAIRE') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_admin_orders_index') }}">Commandes</a>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_admin_user_index') }}">Utilisateurs</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    {% if app.user %}
+                        <span class="nav-text user">
+                            <img class="log-img" src="/assets/images/icones/ddlvry-grphcs-log.svg" alt="user" width="50" height="50">
+                            <h6 class="userName">{{ app.user.userPseudo }}</h6>
+                        </span>
+                        <span id="logout" class="nav-text">
+                            <a class="nav-link" href="{{ path('app_logout') }}">
+                                <button class="btn btn-danger">Déconnexion</button>
+                            </a>
+                        </span>
+                    {% else %}
+                        <span class="nav-text user">
+                            <img class="logout-img" src="/assets/images/icones/ddlvry-grphcs-logout.svg" alt="visiteur" width="50" height="50">
+                            <h6 class="userName visiteur">Visiteur</h6>
+                        </span>
+                        <span class="nav-text">
+                            <a class="nav-link" href="{{ path('app_user_new') }}">
+                                <button class="btn btn-info">Inscription</button>
+                            </a>
+                        </span>
+                        <span id="log" class="nav-text">
+                            <a class="nav-link" href="{{ path('app_security_login') }}">
+                                <button class="btn btn-success">Connexion</button>
+                            </a>
+                        </span>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
+        <div class="nav-small">
+            <div id="mySidebar" class="sidebar">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a class="logo" href="{{ path('app_products_index') }}">
+                    <img class="logo-img" src="/assets/images/icones/ddlvry-grphcs-logo.svg" alt="logo" width="55" height="55">
+                    <span class="logo-text">DEADLIVERY</span>
+                </a>
+                <a href="{{ path('app_products_index') }}">Produits</a>
+                {% if is_granted('ROLE_GESTIONNAIRE') %}
+                    <a href="{{ path('app_servicetype_index') }}">Services</a>
+                {% endif %}
+                {% if is_granted('ROLE_USER') and not is_granted('ROLE_GESTIONNAIRE') %}
+                    <a href="{{ path('app_orders_new') }}">Passer commande</a>
+                    <a href="{{ path('app_user_showaccount') }}">Mon compte</a>
+                {% endif %}
+                {% if is_granted('ROLE_GESTIONNAIRE') %}
+                    <a href="{{ path('app_admin_orders_index') }}">Commandes</a>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('app_admin_user_index') }}">Utilisateurs</a>
+                {% endif %}
+                {% if app.user %}
+                    <div class="user">
+                        <img class="log-img" src="/assets/images/icones/ddlvry-grphcs-log.svg" alt="user" width="50" height="50">
+                        <h6 class="userName">{{ app.user.userPseudo }}</h6>
+                    </div>
+                    <a href="{{ path('app_logout') }}">
+                        <button class="btn btn-danger">Déconnexion</button>
+                    </a>
+                {% else %}
+                    <div class="user">
+                        <img class="logout-img" src="/assets/images/icones/ddlvry-grphcs-logout.svg" alt="visiteur" width="50" height="50">
+                        <h6 class="userName visiteur">Visiteur</h6>
+                    </div>
+                    <a href="{{ path('app_user_new') }}">
+                        <button class="btn btn-info">Inscription</button>
+                    </a>
+                    <a href="{{ path('app_security_login') }}">
+                        <button class="btn btn-success">Connexion</button>
+                    </a>
+                {% endif %}
+            </div>
+            <div id="main">
+                <button class="btn openbtn" onclick="openNav()">&#9776; Open Sidebar</button>
+            </div>
+        </div>
+        <br />
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="{{ label }} div-message">{{ message }}</div>
+            {% endfor %}
+        {% endfor %}
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
